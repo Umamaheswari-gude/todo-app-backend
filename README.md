@@ -19,6 +19,10 @@
 
 ## Features
 
+**Add Task**
+- Added tasks with name, description, status, priority and deadline.
+- Throw error if any field is missing.
+
 --- 
 
 ## Technologies Used
