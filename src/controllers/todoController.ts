@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { addTasks } from "../services/todoService";
+import { addTasks, viewTasks } from "../services/todoService";
 
 export const addTask = async (req: Request, res: Response) => {
   const { name, description, status, priority, deadline } = req.body;
@@ -14,4 +14,13 @@ export const addTask = async (req: Request, res: Response) => {
   } catch {
     res.status(500).json({ error: "Failed to add tasks" });
   }
+};
+
+export const viewTask = async (req: Request, res: Response) => {
+    try {
+        const tasks = await viewTasks();
+        res.status(200).json(tasks);
+    } catch {
+        res.status(500).json({ error: "Failed to fetch tasks" })
+    }  
 };
