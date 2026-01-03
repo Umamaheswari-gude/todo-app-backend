@@ -39,7 +39,7 @@ export const editTask = async (req: Request, res: Response) => {
     const { id } = req.params;
     try {
       const updatedTask = await editTasks(id, req.body);
-      return res.status(200).json(updatedTask);
+      return res.status(200).json( {message: "Task updated successfully" ,updatedTask});
     } catch (error) {
       return res.status(500).json({ message: "Internal server error" });
     }
