@@ -19,3 +19,7 @@ export const viewTasks = async (): Promise<Task[]> => {
       } as Task)
   );
 };
+
+export const deleteTasks = async (id:string): Promise<void> => {
+    await tasksCollection.doc(id).delete()
+}
