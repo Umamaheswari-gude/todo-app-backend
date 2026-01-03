@@ -8,3 +8,14 @@ export const addTasks = async (task: Task): Promise<Task> => {
   await addTasks.set({ ...task, id: addTasks.id });
   return { ...task, id: addTasks.id };
 };
+
+export const viewTasks = async (): Promise<Task[]> => {
+  const getTasks = await tasksCollection.get();
+  return getTasks.docs.map(
+    (doc) =>
+      ({
+        ...doc.data(),
+        id: doc.id,
+      } as Task)
+  );
+};
