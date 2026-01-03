@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { addTasks, deleteTasks, viewTasks } from "../services/todoService";
+import { addTasks, deleteTasks, editTasks, viewTasks } from "../services/todoService";
 
 export const addTask = async (req: Request, res: Response) => {
   const { name, description, status, priority, deadline } = req.body;
@@ -34,3 +34,13 @@ export const deleteTask = async (req: Request, res: Response) => {
         res.status(500).json({ error: "Failed to delete the task" })
     }
 }
+
+export const editTask = async (req: Request, res: Response) => {
+    const { id } = req.params;
+    try {
+      const updatedTask = await editTasks(id, req.body);
+      return res.status(200).json(updatedTask);
+    } catch (error) {
+      return res.status(500).json({ message: "Internal server error" });
+    }
+  };
