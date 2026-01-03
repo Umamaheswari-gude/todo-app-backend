@@ -27,6 +27,9 @@
 - View all tasks with name, description, status, priority and deadline.
 - Implemented the status code error for failed to fetch the tasks.
 
+**Delete task**
+- Delete the existing tasks with id
+
 --- 
 
 ## Technologies Used
