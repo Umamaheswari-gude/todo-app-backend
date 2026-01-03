@@ -20,6 +20,15 @@ export const viewTasks = async (): Promise<Task[]> => {
   );
 };
 
-export const deleteTasks = async (id:string): Promise<void> => {
-    await tasksCollection.doc(id).delete()
-}
+export const deleteTasks = async (id: string): Promise<void> => {
+  await tasksCollection.doc(id).delete();
+};
+
+export const editTasks = async (
+  id: string,
+  updatedTask: Task
+): Promise<Task> => {
+  const updateTask = tasksCollection.doc(id);
+  await updateTask.set(updatedTask);
+  return updatedTask;
+};
