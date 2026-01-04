@@ -2,3 +2,4 @@ node_modules/
 todo-app.json
 .env
 dist/
+coverage/
