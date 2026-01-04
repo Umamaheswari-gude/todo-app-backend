@@ -81,4 +81,13 @@ describe("addTask", () => {
       message: "Task deleted successfully",
     });
   });
+
+  test("should return 500 if delete service throws error", async () => {
+    (deleteTasks as jest.Mock).mockRejectedValue(new Error("delete failed"));
+    await deleteTask(req, res);
+    expect(res.status).toHaveBeenCalledWith(500);
+    expect(res.json).toHaveBeenCalledWith({
+      error: "Failed to delete the task",
+    });
+  });
 });
