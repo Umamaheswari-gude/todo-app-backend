@@ -1,5 +1,5 @@
-import { addTasks } from "../services/todoService";
-import { addTask } from "./todoController";
+import { addTasks, viewTasks } from "../services/todoService";
+import { addTask, viewTask } from "./todoController";
 
 jest.mock("../services/todoService");
 
@@ -53,5 +53,13 @@ describe("addTask", () => {
     expect(res.json).toHaveBeenCalledWith({
       error: "Failed to add tasks",
     });
+  });
+
+  test("should return all tasks and 200", async () => {
+    (viewTasks as jest.Mock).mockResolvedValue([mockTask]);
+    await viewTask(req, res);
+    expect(viewTasks).toHaveBeenCalled();
+    expect(res.status).toHaveBeenCalledWith(200);
+    expect(res.json).toHaveBeenCalledWith([mockTask]);
   });
 });
