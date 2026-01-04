@@ -42,4 +42,16 @@ describe("addTask", () => {
       message: "All fields are required",
     });
   });
+
+  test("should return 500 if service throws error", async () => {
+    req.body = mockTask;
+    (addTasks as jest.Mock).mockRejectedValue(
+      new Error("something went wrong")
+    );
+    await addTask(req, res);
+    expect(res.status).toHaveBeenCalledWith(500);
+    expect(res.json).toHaveBeenCalledWith({
+      error: "Failed to add tasks",
+    });
+  });
 });
