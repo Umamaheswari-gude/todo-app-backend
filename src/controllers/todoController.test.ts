@@ -62,4 +62,13 @@ describe("addTask", () => {
     expect(res.status).toHaveBeenCalledWith(200);
     expect(res.json).toHaveBeenCalledWith([mockTask]);
   });
+
+  test("should return 500 if service throws error", async () => {
+    (viewTasks as jest.Mock).mockRejectedValue(new Error("fails"));
+    await viewTask(req, res);
+    expect(res.status).toHaveBeenCalledWith(500);
+    expect(res.json).toHaveBeenCalledWith({
+      error: "Failed to fetch tasks",
+    });
+  });
 });
