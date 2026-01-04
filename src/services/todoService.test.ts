@@ -1,15 +1,17 @@
 import { db } from "../firebase/firebaseConfig";
 import { Task } from "../types/types";
-import { addTasks, viewTasks } from "./todoService";
+import { addTasks, deleteTasks, viewTasks } from "./todoService";
 
 jest.mock("../firebase/firebaseConfig", () => {
   const mockSet = jest.fn().mockResolvedValue(null);
   const mockGet = jest.fn().mockResolvedValue({ exists: true });
+  const mockDelete = jest.fn().mockResolvedValue(undefined);
 
   const mockDoc = {
     id: "1",
     set: mockSet,
     get: mockGet,
+    delete: mockDelete,
   };
 
   const mockCollection = {
@@ -76,6 +78,13 @@ describe("Task service", () => {
     expect(tasks[0].name).toBe("assignment");
     expect(tasks[0].status).toBe("Pending");
     expect(tasks[0].id).toBe("1");
+  });
+
+  test("deleteTasks should delete an existing task", async () => {
+    mockDoc.get.mockResolvedValueOnce({ exists: true });
+    await deleteTasks("1");
+    expect(mockCollection.doc).toHaveBeenCalledWith("1");
+    expect(mockDoc.delete).toHaveBeenCalled();
   });
   
 });
