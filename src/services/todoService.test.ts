@@ -1,6 +1,6 @@
 import { db } from "../firebase/firebaseConfig";
 import { Task } from "../types/types";
-import { addTasks, deleteTasks, viewTasks } from "./todoService";
+import { addTasks, deleteTasks, editTasks, viewTasks } from "./todoService";
 
 jest.mock("../firebase/firebaseConfig", () => {
   const mockSet = jest.fn().mockResolvedValue(null);
@@ -85,6 +85,14 @@ describe("Task service", () => {
     await deleteTasks("1");
     expect(mockCollection.doc).toHaveBeenCalledWith("1");
     expect(mockDoc.delete).toHaveBeenCalled();
+  });
+
+  test("editTasks should update an existing task", async () => {
+    const updatedTask: Task = { ...mockTask, status: "Completed" };
+    const result = await editTasks("1", updatedTask);
+    expect(mockCollection.doc).toHaveBeenCalledWith("1");
+    expect(mockSet).toHaveBeenCalledWith(updatedTask);
+    expect(result).toEqual(updatedTask);
   });
   
 });
