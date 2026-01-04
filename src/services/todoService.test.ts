@@ -1,6 +1,6 @@
 import { db } from "../firebase/firebaseConfig";
 import { Task } from "../types/types";
-import { addTasks, deleteTasks, editTasks, viewTasks } from "./todoService";
+import { addTasks, viewTasks } from "./todoService";
 
 jest.mock("../firebase/firebaseConfig", () => {
   const mockSet = jest.fn().mockResolvedValue(null);
@@ -69,5 +69,14 @@ describe("Task service", () => {
     expect(result.description).toBe("complete the assignment");
   });
 
+  test("viewTasks should return all tasks", async () => {
+    const tasks = await viewTasks();
+    expect(mockCollection.get).toHaveBeenCalled();
+    expect(tasks.length).toBe(1);
+    expect(tasks[0].name).toBe("assignment");
+    expect(tasks[0].status).toBe("Pending");
+    expect(tasks[0].id).toBe("1");
+  });
+  
 });
 
