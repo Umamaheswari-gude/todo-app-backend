@@ -72,6 +72,15 @@ npm run build
 npm run start
 ```
 
+### 5. Run the test cases
+```bash
+npm run test
+```
+- coverage
+```bash
+npm run test --coverage
+```
+
 ----
 
 ## Contribution
