@@ -30,6 +30,9 @@
 **Delete task**
 - Delete the existing tasks with id
 
+**Edit task**
+- Edit the existing tasks with name, description, status, priority and deadline.
+
 --- 
 
 ## Technologies Used
