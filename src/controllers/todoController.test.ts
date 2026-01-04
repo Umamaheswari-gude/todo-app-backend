@@ -1,5 +1,5 @@
-import { addTasks, viewTasks } from "../services/todoService";
-import { addTask, viewTask } from "./todoController";
+import { addTasks, deleteTasks, viewTasks } from "../services/todoService";
+import { addTask, deleteTask, viewTask } from "./todoController";
 
 jest.mock("../services/todoService");
 
@@ -69,6 +69,16 @@ describe("addTask", () => {
     expect(res.status).toHaveBeenCalledWith(500);
     expect(res.json).toHaveBeenCalledWith({
       error: "Failed to fetch tasks",
+    });
+  });
+
+  test("should delete a task and return 200", async () => {
+    (deleteTasks as jest.Mock).mockResolvedValue(undefined);
+    await deleteTask(req, res);
+    expect(deleteTasks).toHaveBeenCalledWith("1");
+    expect(res.status).toHaveBeenCalledWith(200);
+    expect(res.json).toHaveBeenCalledWith({
+      message: "Task deleted successfully",
     });
   });
 });
