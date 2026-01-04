@@ -1,5 +1,5 @@
-import { addTasks, deleteTasks, viewTasks } from "../services/todoService";
-import { addTask, deleteTask, viewTask } from "./todoController";
+import { addTasks, deleteTasks, editTasks, viewTasks } from "../services/todoService";
+import { addTask, deleteTask, editTask, viewTask } from "./todoController";
 
 jest.mock("../services/todoService");
 
@@ -90,4 +90,15 @@ describe("addTask", () => {
       error: "Failed to delete the task",
     });
   });
+
+  test("should return 500 if update service throws error", async () => {
+    req.body = mockTask;
+    (editTasks as jest.Mock).mockRejectedValue(new Error("update failed"));
+    await editTask(req, res);
+    expect(res.status).toHaveBeenCalledWith(500);
+    expect(res.json).toHaveBeenCalledWith({
+      message: "Internal server error",
+    });
+  });
+
 });
