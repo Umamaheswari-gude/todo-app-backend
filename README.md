@@ -33,10 +33,6 @@
 **Edit task**
 - Edit the existing tasks with name, description, status, priority and deadline.
 
-**Testing**
-- Add testing to the service layer for add,view,edit and delete tasks.
-- Add testing to the controller layer for add,view,edit and delete tasks and for status codes.
-
 --- 
 
 ## Technologies Used
@@ -64,21 +60,21 @@ npm install
 
 ### 3. Build the application
 ```bash
-npm run build
+npm build
 ```
 
 ### 4. Run the application 
 ```bash
-npm run start
+npm start
 ```
 
 ### 5. Run the test cases
 ```bash
-npm run test
+npm test
 ```
 - coverage
 ```bash
-npm run test --coverage
+npm test --coverage
 ```
 
 ----
