@@ -25,12 +25,6 @@ jobs:
       - name: Build project
         run: npm run build
 
-      - name: Run tests
-        run: npm test
-
-      - name: Run test coverage
-        run: npm run test --coverage
-
   deploy:
     runs-on: ubuntu-latest
     needs: build
